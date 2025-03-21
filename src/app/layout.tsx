@@ -31,7 +31,11 @@ export default function RootLayout({
           className={`dark ${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <NavBar />
-          <div className="px-[150px] py-10">{children}</div>
+          <div className="px-[60px] py-10">
+            <div className="bg-card p-4 rounded-lg min-h-[450px]">
+              {children}
+            </div>
+          </div>
         </body>
       </html>
     </AuthProvider>

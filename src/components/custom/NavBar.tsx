@@ -14,7 +14,7 @@ export const NavBar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   return (
-    <div className="w-full py-3 bg-card px-[150px] flex items-center gap-4">
+    <div className="w-full py-3 bg-card px-[60px] flex items-center gap-4">
       <Image
         src="https://upload.wikimedia.org/wikipedia/commons/d/db/Zeronet_logo.png"
         alt="logo"
