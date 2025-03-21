@@ -30,13 +30,17 @@ export const NavBar = async () => {
       <Input search={true} placeholder="Search..." />
       {user ? (
         <>
-          <Image
-            src={user.picture || ""}
-            alt="user logo"
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
+          <Link
+            href="/user"
+            className="relative min-h-[40px] min-w-[40px] max-h-[50px] max-w-[50px]"
+          >
+            <Image
+              src={user.picture || ""}
+              alt="user logo"
+              fill
+              className="rounded-full"
+            />
+          </Link>
           <LogoutLink className={cn(buttonVariants({ variant: "purple" }))}>
             Logout
           </LogoutLink>
