@@ -5,21 +5,21 @@ import { Button } from "../ui/button";
 import { Plus, Image as Picture, Upload } from "lucide-react";
 
 export const ImageUploader = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageSelection = async (e) => {
-    const file = e.target.files[0];
+  const handleImageSelection = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
     if (!file || !file.type.startsWith("image/")) return;
 
-    // Set temporary preview
     setPreview(URL.createObjectURL(file));
     setIsUploading(true);
 
     try {
-      // Create FormData for upload
       const formData = new FormData();
       formData.append("file", file);
 
@@ -46,7 +46,9 @@ export const ImageUploader = () => {
   };
 
   const triggerFileInput = () => {
-    fileInputRef.current.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
   return (
