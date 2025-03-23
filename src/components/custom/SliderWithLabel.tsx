@@ -12,6 +12,7 @@ export const SliderWithLabel = () => {
         min={1}
         max={5}
         step={1}
+        name="condition"
       />
       <span className="w-[20px] text-xl font-bold">{progress[0]}</span>
     </div>
