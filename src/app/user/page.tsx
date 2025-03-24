@@ -48,45 +48,22 @@ export default async function UserPage() {
         </div>
         <TabsContent value="posts">
           {posts.length ? (
-            <>
+            <div className="flex flex-col gap-4">
               <div className="flex justify-end">
                 <Link
                   href="/post/create"
                   className={cn(buttonVariants({ variant: "purple" }))}
                 >
+                  <Plus />
                   Add more
                 </Link>
               </div>
               <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {posts.map((item) => (
-                  <div
-                    key={item.id}
-                    className="border border-gray-700 group overflow-hidden rounded-lg bg-background shadow-md hover:shadow-lg"
-                  >
-                    <Link href="/" className="block w-full h-full">
-                      <div className="w-full h-48 relative overflow-hidden">
-                        <Image
-                          src={item.imageUrl}
-                          alt="post image"
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-115"
-                        />
-                      </div>
-                      <div className="flex flex-col p-3 gap-4">
-                        <p className="text-2xl font-bold">{item.title}</p>
-                        <p className="text-lg max-w-full truncate">
-                          {item.description}
-                        </p>
-                        <div className="w-full flex justify-between items-center text-lg">
-                          <p>Item condition</p>
-                          <p className="font-bold">{item.condition}/5</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
+                  <PostCard item={item} key={item.id} />
                 ))}
               </div>
-            </>
+            </div>
           ) : (
             <div className="h-full flex justify-center">
               <div className="flex flex-col gap-4 w-full justify-center items-center bg-background rounded-lg">
@@ -108,3 +85,55 @@ export default async function UserPage() {
     </div>
   );
 }
+
+interface PostCardProps {
+  title: string;
+  description: string;
+  condition: string;
+  imageUrl: string;
+  authorName?: string;
+  authorImage?: string;
+}
+
+export const PostCard = ({
+  item,
+  explorePage,
+}: {
+  item: PostCardProps;
+  explorePage?: boolean;
+}) => {
+  return (
+    <div className="border border-gray-700 group overflow-hidden rounded-lg bg-background shadow-md hover:shadow-lg">
+      <Link href="/" className="block w-full h-full">
+        <div className="w-full h-48 relative overflow-hidden">
+          <Image
+            src={item.imageUrl}
+            alt="post image"
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-115"
+          />
+        </div>
+        <div className="flex flex-col p-3 gap-4">
+          <p className="text-2xl font-bold">{item.title}</p>
+          <p className="text-lg max-w-full truncate">{item.description}</p>
+          <div className="w-full flex justify-between items-center text-lg">
+            <p>Item condition</p>
+            <p className="font-bold">{item.condition}/5</p>
+          </div>
+          {explorePage && (
+            <div className="flex items-center gap-4">
+              <Image
+                src={item.authorImage || ""}
+                alt="user logo"
+                width={22}
+                height={22}
+                className="rounded-full"
+              />
+              <p>{item.authorName}</p>
+            </div>
+          )}
+        </div>
+      </Link>
+    </div>
+  );
+};
